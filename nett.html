@@ -1,64 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Cinta Untuk Netanya</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bulan Pink Interaktif</title>
   <style>
     body {
       margin: 0;
-      background: linear-gradient(to bottom, #fff0f5, #ffe6e6);
       height: 100vh;
-      overflow: hidden;
+      background: linear-gradient(to bottom, #ffe4f2, #ffd6ec);
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      font-family: 'Arial', sans-serif;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'Comic Sans MS', cursive;
+      overflow: hidden;
     }
 
-    button {
-      padding: 15px 30px;
-      font-size: 1.2em;
-      background-color: #ff4d88;
-      border: none;
-      color: white;
-      border-radius: 10px;
+    .moon {
+      width: 150px;
+      height: 150px;
+      background-image: url('BULAN-PINK.png');
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: background-color 0.3s ease;
+      animation: glow 2s infinite alternate;
     }
 
-    button:hover {
-      background-color: #e60073;
-    }
-
-    #message {
-      margin-top: 30px;
-      font-size: 2em;
-      color: #cc0066;
-      font-weight: bold;
-      display: none;
-      animation: fadeInUp 1s ease-out;
-    }
-
-    @keyframes fadeInUp {
+    @keyframes glow {
       from {
-        opacity: 0;
-        transform: translateY(30px);
+        box-shadow: 0 0 10px #ff99cc, 0 0 20px #ff66b2;
       }
       to {
-        opacity: 1;
-        transform: translateY(0);
+        box-shadow: 0 0 20px #ff3399, 0 0 40px #ff99cc;
       }
+    }
+
+    .text {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #b30059;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.5s ease;
+      text-align: center;
+    }
+
+    .text.show {
+      opacity: 1;
+      transform: scale(1.1);
     }
 
     .heart {
       position: absolute;
       width: 20px;
       height: 20px;
-      background: red;
+      background-color: pink;
       transform: rotate(45deg);
-      animation: fall linear infinite;
+      animation: floatUp 2s ease-out forwards;
     }
 
     .heart::before,
@@ -67,7 +67,7 @@
       position: absolute;
       width: 20px;
       height: 20px;
-      background: red;
+      background-color: pink;
       border-radius: 50%;
     }
 
@@ -81,42 +81,51 @@
       top: 0;
     }
 
-    @keyframes fall {
+    @keyframes floatUp {
       0% {
-        top: -10%;
         opacity: 1;
-        transform: translateX(0) rotate(45deg);
+        transform: translateY(0) scale(1) rotate(45deg);
       }
       100% {
-        top: 110%;
         opacity: 0;
-        transform: translateX(30px) rotate(45deg);
+        transform: translateY(-100px) scale(1.5) rotate(45deg);
       }
     }
   </style>
 </head>
 <body>
-
-  <button onclick="showLove()">Klik Aku</button>
-  <div id="message">Netanya Salurapa Tallulembang</div>
+  <div class="moon" id="moon"></div>
+  <div class="text" id="message">Netanya Salurapa Tallu Lembang</div>
 
   <script>
-    function showLove() {
-      const message = document.getElementById('message');
-      message.style.display = 'block';
+    const moon = document.getElementById("moon");
+    const message = document.getElementById("message");
 
-      setInterval(() => {
-        const heart = document.createElement('div');
-        heart.className = 'heart';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = (2 + Math.random() * 3) + 's';
-        document.body.appendChild(heart);
-        setTimeout(() => {
-          heart.remove();
-        }, 5000);
-      }, 200);
+    moon.addEventListener("click", () => {
+      message.classList.toggle("show");
+
+      for (let i = 0; i < 10; i++) {
+        createHeart();
+      }
+    });
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = `${Math.random() * window.innerWidth}px`;
+      heart.style.top = `${Math.random() * 100 + 200}px`;
+      heart.style.backgroundColor = randomPink();
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 2000);
+    }
+
+    function randomPink() {
+      const pinks = ["#ff99cc", "#ff66b2", "#ffb6c1", "#ff85ad"];
+      return pinks[Math.floor(Math.random() * pinks.length)];
     }
   </script>
-
 </body>
 </html>
