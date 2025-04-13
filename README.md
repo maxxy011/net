@@ -95,7 +95,7 @@
 </head>
 <body>
   <div class="moon" id="moon"></div>
-  <div class="text" id="message">Netanya Salurapa Tallu Lembang</div>
+  <div class="text" id="message">Netanya Salurapa Tallulembang aka Netayangg&lt;3</div>
 
   <script>
     const moon = document.getElementById("moon");
